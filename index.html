@@ -1,0 +1,137 @@
+Plan: przygotuję prostą stronę HTML (jedna plik index.html) z checklistą kroków, skrótami klawiszowymi i sekcją „najczęstsze problemy”, gotową do wrzucenia na GitHub Pages.
+
+
+```html
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GIMP — fotomontaż 2 zdjęć (wytnij + wklej)</title>
+  <meta name="description" content="Krótki algorytm krok po kroku do fotomontażu w GIMP: wycięcie obiektu i wklejenie na drugie zdjęcie jako warstwa." />
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; line-height: 1.5; }
+    header { padding: 24px 16px; border-bottom: 1px solid #e5e5e5; }
+    main { max-width: 900px; margin: 0 auto; padding: 16px; }
+    h1 { margin: 0 0 8px; font-size: 22px; }
+    .muted { color: #666; margin: 0; }
+    .card { border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; margin: 16px 0; }
+    ol { padding-left: 20px; }
+    li { margin: 10px 0; }
+    kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.95em; padding: 2px 6px; border: 1px solid #ddd; border-bottom-width: 2px; border-radius: 6px; background: #fafafa; }
+    .grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+    @media (min-width: 840px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .tag { display: inline-block; padding: 2px 8px; border: 1px solid #e5e5e5; border-radius: 999px; font-size: 12px; color: #444; }
+    footer { padding: 24px 16px; border-top: 1px solid #e5e5e5; color: #666; font-size: 13px; }
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button { cursor: pointer; border: 1px solid #ddd; border-radius: 10px; background: #fff; padding: 10px 12px; font-size: 14px; }
+    button:active { transform: translateY(1px); }
+    .done { text-decoration: line-through; color: #777; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GIMP — fotomontaż 2 zdjęć: wytnij obiekt i wklej na drugie</h1>
+    <p class="muted">Jedna checklista. Zaznaczaj kroki po kolei.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="grid">
+        <div>
+          <div class="tag">Cel</div>
+          <p>Wyciąć obiekt ze zdjęcia A (dowolny kształt) i wkleić go na zdjęcie B jako osobną warstwę.</p>
+        </div>
+        <div>
+          <div class="tag">Ważne</div>
+          <p>„Kadruj do zaznaczenia” tnie do prostokąta. Do wycinania obiektu używaj kanału alfa i kasowania tła.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Algorytm (krok po kroku)</h2>
+      <ol id="steps">
+        <li>Otwórz zdjęcie A (Plik - Otwórz).</li>
+        <li>Inteligentne nożyce: obrysuj obiekt, zamknij obrys i utwórz zaznaczenie (<kbd>Enter</kbd>).</li>
+        <li>Dodaj przezroczystość: Warstwa - Przezroczystość - Dodaj kanał alfa.</li>
+        <li>Odwróć zaznaczenie: Zaznaczenie - Odwróć (<kbd>Ctrl</kbd> + <kbd>I</kbd>).</li>
+        <li>Usuń tło: <kbd>Delete</kbd> (poza obiektem zrobi się przezroczystość).</li>
+        <li>Usuń zaznaczenie: Zaznaczenie - Brak (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>).</li>
+        <li>(Opcjonalnie) Warstwa - Przytnij do zawartości (warstwa dopasuje się do obiektu).</li>
+        <li>Skopiuj obiekt: Edycja - Kopiuj (<kbd>Ctrl</kbd> + <kbd>C</kbd>).</li>
+        <li>Otwórz zdjęcie B (docelowe). Najlepiej: Plik - Otwórz jako warstwy… i wybierz zdjęcie B w tym samym projekcie.</li>
+        <li>Wklej: Edycja - Wklej (<kbd>Ctrl</kbd> + <kbd>V</kbd>).</li>
+        <li>Zamień wklejkę w normalną warstwę: Warstwa - Do nowej warstwy (ważne, gdy jest „pływające zaznaczenie”).</li>
+        <li>Ustaw pozycję: narzędzie Przesunięcie (<kbd>M</kbd>).</li>
+        <li>Dopasuj rozmiar: narzędzie Skalowanie (<kbd>Shift</kbd> + <kbd>S</kbd>) lub Warstwa - Skala warstwy…</li>
+        <li>Zapisz projekt: Plik - Zapisz jako… (XCF). Gotowy obraz: Plik - Eksportuj jako… (PNG/JPG).</li>
+      </ol>
+
+      <div class="btns">
+        <button id="btnAll">Odhacz wszystko</button>
+        <button id="btnNone">Wyczyść</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Najczęstsze problemy</h2>
+      <ul>
+        <li><strong>Tło nie robi się przezroczyste</strong> → dodaj kanał alfa (Warstwa - Przezroczystość - Dodaj kanał alfa).</li>
+        <li><strong>Nie mogę ruszyć wklejonego obiektu</strong> → masz „pływające zaznaczenie”, użyj Warstwa - Do nowej warstwy.</li>
+        <li><strong>Krawędź ma „ząbki”</strong> → Zaznaczenie - Wygładź (Feather) 1-2 px lub Zaznaczenie - Wyrównaj/Wygładź.</li>
+        <li><strong>Eksport do JPG usuwa przezroczystość</strong> → eksportuj do PNG, JPG nie obsługuje alfa.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Wrzucenie na GitHub Pages: utwórz repo, dodaj ten plik jako <strong>index.html</strong>, w ustawieniach repo włącz Pages (Deploy from branch).
+  </footer>
+
+  <script>
+    // Prosta interaktywna checklista (zapamiętuje stan w przeglądarce)
+    const steps = document.querySelectorAll('#steps li');
+    const KEY = 'gimp-montaz-checklist-v1';
+
+    function load() {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      try {
+        const arr = JSON.parse(raw);
+        steps.forEach((li, i) => {
+          if (arr[i]) li.classList.add('done');
+        });
+      } catch {}
+    }
+
+    function save() {
+      const arr = Array.from(steps).map(li => li.classList.contains('done'));
+      localStorage.setItem(KEY, JSON.stringify(arr));
+    }
+
+    steps.forEach(li => {
+      li.style.cursor = 'pointer';
+      li.title = 'Kliknij, aby oznaczyć jako zrobione';
+      li.addEventListener('click', () => {
+        li.classList.toggle('done');
+        save();
+      });
+    });
+
+    document.getElementById('btnAll').addEventListener('click', () => {
+      steps.forEach(li => li.classList.add('done'));
+      save();
+    });
+
+    document.getElementById('btnNone').addEventListener('click', () => {
+      steps.forEach(li => li.classList.remove('done'));
+      save();
+    });
+
+    load();
+  </script>
+</body>
+</html>
+```
