@@ -1,0 +1,186 @@
+<!-- fotomontaz.html -->
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fotomontaż w GIMP — algorytm</title>
+  <meta name="description" content="Fotomontaż w GIMP dla 12+. Proste kroki: wytnij obiekt i wklej na inne zdjęcie." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">🖼️</div>
+        <div>
+          <h1>Fotomontaż w GIMP</h1>
+          <p class="muted">Wytnij obiekt ze zdjęcia A i wklej na zdjęcie B</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn" href="index.html">⬅️ Spis treści</a>
+        <button class="btn" id="btnReset" type="button">🧹 Wyczyść odhaczenia</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>Co będzie potrzebne?</h2>
+      <ul class="bullets">
+        <li>GIMP (program do grafiki)</li>
+        <li>2 zdjęcia: <strong>A</strong> (z obiektem) i <strong>B</strong> (tło)</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Algorytm krok po kroku (klikaj, żeby odhaczać)</h2>
+
+      <div class="steps" id="steps">
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">1</span>
+          <span class="step-text">Otwórz zdjęcie <strong>A</strong>: <span class="mono">Plik -> Otwórz</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">2</span>
+          <span class="step-text">Wybierz <strong>Inteligentne nożyce</strong>. Obrysuj obiekt i zamknij obrys.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">3</span>
+          <span class="step-text">Zrób zaznaczenie: naciśnij <span class="kbd">Enter</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">4</span>
+          <span class="step-text">Dodaj przezroczystość: <span class="mono">Warstwa -> Przezroczystość -> Dodaj kanał alfa</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">5</span>
+          <span class="step-text">Odwróć zaznaczenie: <span class="mono">Zaznaczenie -> Odwróć</span> lub <span class="kbd">Ctrl</span>+<span class="kbd">I</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">6</span>
+          <span class="step-text">Usuń tło: naciśnij <span class="kbd">Delete</span> (zostanie obiekt, reszta będzie jak szachownica).</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">7</span>
+          <span class="step-text">Usuń zaznaczenie: <span class="mono">Zaznaczenie -> Brak</span> lub <span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">A</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">8</span>
+          <span class="step-text">(Opcjonalnie) Dopasuj warstwę do obiektu: <span class="mono">Warstwa -> Przytnij do zawartości</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">9</span>
+          <span class="step-text">Skopiuj obiekt: <span class="mono">Edycja -> Kopiuj</span> lub <span class="kbd">Ctrl</span>+<span class="kbd">C</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">10</span>
+          <span class="step-text">Otwórz zdjęcie <strong>B</strong> (tło): <span class="mono">Plik -> Otwórz jako warstwy…</span> i wybierz zdjęcie B.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">11</span>
+          <span class="step-text">Wklej obiekt na zdjęcie B: <span class="mono">Edycja -> Wklej</span> lub <span class="kbd">Ctrl</span>+<span class="kbd">V</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">12</span>
+          <span class="step-text">Zamień wklejkę w normalną warstwę: <span class="mono">Warstwa -> Do nowej warstwy</span>.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">13</span>
+          <span class="step-text">Ustaw obiekt: narzędzie <strong>Przesunięcie</strong> (<span class="kbd">M</span>), przeciągnij w dobre miejsce.</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">14</span>
+          <span class="step-text">Zmień rozmiar, jeśli trzeba: narzędzie <strong>Skalowanie</strong> (<span class="kbd">Shift</span>+<span class="kbd">S</span>).</span>
+        </label>
+
+        <label class="step">
+          <input type="checkbox" />
+          <span class="step-num">15</span>
+          <span class="step-text">Zapisz projekt: <span class="mono">Plik -> Zapisz jako…</span> (XCF). Gotowe: <span class="mono">Plik -> Eksportuj jako…</span> (PNG/JPG).</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Szybkie ratowanie problemów</h2>
+      <div class="mini-grid">
+        <div class="mini">
+          <div class="mini-title">Tło nie znika</div>
+          <div class="mini-text">Dodaj kanał alfa (krok 4). Bez tego GIMP często robi białe tło zamiast przezroczystości.</div>
+        </div>
+        <div class="mini">
+          <div class="mini-title">Nie mogę ruszyć obiektu</div>
+          <div class="mini-text">Zrób „Do nowej warstwy” (krok 12). Inaczej to „pływające zaznaczenie”.</div>
+        </div>
+        <div class="mini">
+          <div class="mini-title">Krawędź brzydka</div>
+          <div class="mini-text">Spróbuj: <span class="mono">Zaznaczenie -> Wygładź</span> (1-2 px) albo popraw nożycami.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap muted">
+      Tip: przezroczystość zachowuje <strong>PNG</strong>, a <strong>JPG</strong> nie.
+    </div>
+  </footer>
+
+  <script>
+    // Zapamiętywanie odhaczonych kroków w przeglądarce
+    const KEY = "instrukcje-fotomontaz-v1";
+    const boxes = Array.from(document.querySelectorAll("#steps input[type='checkbox']"));
+
+    function load() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(KEY) || "[]");
+        boxes.forEach((b, i) => b.checked = !!saved[i]);
+      } catch {}
+    }
+
+    function save() {
+      const data = boxes.map(b => b.checked);
+      localStorage.setItem(KEY, JSON.stringify(data));
+    }
+
+    boxes.forEach(b => b.addEventListener("change", save));
+
+    document.getElementById("btnReset").addEventListener("click", () => {
+      boxes.forEach(b => b.checked = false);
+      save();
+    });
+
+    load();
+  </script>
+</body>
+</html>
